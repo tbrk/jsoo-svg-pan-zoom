@@ -6,7 +6,7 @@
 (*                                                                     *)
 (*  Copyright 2018 Institut National de Recherche en Informatique et   *)
 (*  en Automatique.  All rights reserved.  This file is distributed    *)
-(*  under an MIT License, refer to the file LICENSE.                   *)
+(*  under a BSD-2 License, refer to the file LICENSE.                  *)
 (*                                                                     *)
 (***********************************************************************)
 

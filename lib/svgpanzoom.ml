@@ -1,3 +1,14 @@
+(***********************************************************************)
+(*                                                                     *)
+(*    Low-level js_of_ocaml interface to the svn-pan-zoom library      *)
+(*                                                                     *)
+(*                   Timothy Bourke (Inria/ENS)                        *)
+(*                                                                     *)
+(*  Copyright 2018 Institut National de Recherche en Informatique et   *)
+(*  en Automatique.  All rights reserved.  This file is distributed    *)
+(*  under a BSD-2 License, refer to the file LICENSE.                  *)
+(*                                                                     *)
+(***********************************************************************)
 
 class type point = object
   method x : float Js.prop

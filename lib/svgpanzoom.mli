@@ -175,9 +175,40 @@ val svgPanZoom
 val svgPanZoom_withOptions
   : (Js.js_string Js.t -> options Js.t -> t Js.t) Js.constr
 
+val svgPanZoom'
+  : (Dom_svg.svgElement Js.t -> t Js.t) Js.constr
+
+val svgPanZoom_withOptions'
+  : (Dom_svg.svgElement Js.t -> options Js.t -> t Js.t) Js.constr
+
 type point_or_bool =
   | Point of float * float
   | Bool  of bool
+
+val create_options:
+     ?viewportSelector          : string
+  -> ?panEnabled                : bool
+  -> ?controlIconsEnabled       : bool
+  -> ?zoomEnabled               : bool
+  -> ?dblClickZoomEnabled       : bool
+  -> ?mouseWheelZoomEnabled     : bool
+  -> ?preventMouseEventsDefault : bool
+  -> ?zoomScaleSensitivity      : float
+  -> ?minZoom                   : float
+  -> ?maxZoom                   : float
+  -> ?fit                       : bool
+  -> ?contain                   : bool
+  -> ?center                    : bool
+  -> ?refreshRate               : string
+  -> ?beforeZoom   : (t Js.t -> float -> float -> bool)
+  -> ?onZoom       : (t Js.t -> float -> unit)
+  -> ?beforePan    : (t Js.t -> (float * float) -> (float * float) -> point_or_bool)
+  -> ?onPan        : (t Js.t -> (float * float) -> unit)
+  -> ?onUpdatedCTM : (t Js.t -> ctm_r -> unit)
+  -> ?customEventsHandler       : custom_event_handler Js.t
+  -> ?eventsListenerElement     : Dom_svg.svgElement Js.t
+  -> unit
+  -> options Js.t
 
 val create:
      ?viewportSelector          : string
@@ -202,5 +233,30 @@ val create:
   -> ?customEventsHandler       : custom_event_handler Js.t
   -> ?eventsListenerElement     : Dom_svg.svgElement Js.t
   -> string
+  -> t Js.t
+
+val create_withsvg:
+     ?viewportSelector          : string
+  -> ?panEnabled                : bool
+  -> ?controlIconsEnabled       : bool
+  -> ?zoomEnabled               : bool
+  -> ?dblClickZoomEnabled       : bool
+  -> ?mouseWheelZoomEnabled     : bool
+  -> ?preventMouseEventsDefault : bool
+  -> ?zoomScaleSensitivity      : float
+  -> ?minZoom                   : float
+  -> ?maxZoom                   : float
+  -> ?fit                       : bool
+  -> ?contain                   : bool
+  -> ?center                    : bool
+  -> ?refreshRate               : string
+  -> ?beforeZoom   : (t Js.t -> float -> float -> bool)
+  -> ?onZoom       : (t Js.t -> float -> unit)
+  -> ?beforePan    : (t Js.t -> (float * float) -> (float * float) -> point_or_bool)
+  -> ?onPan        : (t Js.t -> (float * float) -> unit)
+  -> ?onUpdatedCTM : (t Js.t -> ctm_r -> unit)
+  -> ?customEventsHandler       : custom_event_handler Js.t
+  -> ?eventsListenerElement     : Dom_svg.svgElement Js.t
+  -> Dom_svg.svgElement Js.t
   -> t Js.t
 

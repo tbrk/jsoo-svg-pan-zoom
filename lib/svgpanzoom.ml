@@ -168,6 +168,14 @@ let svgPanZoom_withOptions =
   (Js.Unsafe.global##._svgPanZoom
     : (Js.js_string Js.t -> options Js.t -> t Js.t) Js.constr)
 
+let svgPanZoom' =
+  (Js.Unsafe.global##._svgPanZoom
+    : (Dom_svg.svgElement Js.t -> t Js.t) Js.constr)
+
+let svgPanZoom_withOptions' =
+  (Js.Unsafe.global##._svgPanZoom
+    : (Dom_svg.svgElement Js.t -> options Js.t -> t Js.t) Js.constr)
+
 type point_or_bool =
   | Point of float * float
   | Bool  of bool
@@ -195,6 +203,53 @@ let wrap_onPan f =
 let wrap_onUpdatedCTM f =
   Js.wrap_meth_callback (fun this c -> f this (from_ctm c))
 
+let create_options
+      ?viewportSelector
+      ?panEnabled
+      ?controlIconsEnabled
+      ?zoomEnabled
+      ?dblClickZoomEnabled
+      ?mouseWheelZoomEnabled
+      ?preventMouseEventsDefault
+      ?zoomScaleSensitivity
+      ?minZoom
+      ?maxZoom
+      ?fit
+      ?contain
+      ?center
+      ?refreshRate
+      ?beforeZoom
+      ?onZoom
+      ?beforePan
+      ?onPan
+      ?onUpdatedCTM
+      ?customEventsHandler
+      ?eventsListenerElement
+      unit =
+  let o = (Js.Unsafe.obj [| |] : options Js.t) in
+  set_string (fun x -> o##.viewportSelector := x)      viewportSelector;
+  set_bool   (fun x -> o##.panEnabled := x)            panEnabled;
+  set_bool   (fun x -> o##.controlIconsEnabled := x)   controlIconsEnabled;
+  set_bool   (fun x -> o##.zoomEnabled := x)           zoomEnabled;
+  set_bool   (fun x -> o##.dblClickZoomEnabled := x)   dblClickZoomEnabled;
+  set_bool   (fun x -> o##.mouseWheelZoomEnabled := x) mouseWheelZoomEnabled;
+  set_bool   (fun x -> o##.preventMouseEventsDefault := x) preventMouseEventsDefault;
+  set_float  (fun x -> o##.zoomScaleSensitivity := x) zoomScaleSensitivity;
+  set_float  (fun x -> o##.minZoom := x) minZoom;
+  set_float  (fun x -> o##.maxZoom := x) maxZoom;
+  set_bool   (fun x -> o##.fit := x) fit;
+  set_bool   (fun x -> o##.contain := x) contain;
+  set_bool   (fun x -> o##.center := x) center;
+  set_string (fun x -> o##.refreshRate := x) refreshRate;
+  set_option wrap_beforeZoom (fun x -> o##.beforeZoom := x) beforeZoom;
+  set_option wrap_onZoom (fun x -> o##.onZoom := x) onZoom;
+  set_option wrap_beforePan (fun x -> o##.beforePan := x) beforePan;
+  set_option wrap_onPan (fun x -> o##.onPan := x) onPan;
+  set_option wrap_onUpdatedCTM (fun x -> o##.onUpdatedCTM := x) onUpdatedCTM;
+  set_option (fun x -> x) (fun x -> o##.customEventsHandler := x) customEventsHandler;
+  set_option (fun x -> x) (fun x -> o##.eventsListenerElement := x) eventsListenerElement;
+  o
+
 let create
       ?viewportSelector
       ?panEnabled
@@ -218,27 +273,78 @@ let create
       ?customEventsHandler
       ?eventsListenerElement
       svgid =
-  let o = (Js.Unsafe.obj [| |] : options Js.t) in
-  set_string (fun x -> o##.viewportSelector := x)      viewportSelector;
-  set_bool   (fun x -> o##.panEnabled := x)            panEnabled;
-  set_bool   (fun x -> o##.controlIconsEnabled := x)   controlIconsEnabled;
-  set_bool   (fun x -> o##.zoomEnabled := x)           zoomEnabled;
-  set_bool   (fun x -> o##.dblClickZoomEnabled := x)   dblClickZoomEnabled;
-  set_bool   (fun x -> o##.mouseWheelZoomEnabled := x) mouseWheelZoomEnabled;
-  set_bool   (fun x -> o##.preventMouseEventsDefault := x) preventMouseEventsDefault;
-  set_float  (fun x -> o##.zoomScaleSensitivity := x) zoomScaleSensitivity;
-  set_float  (fun x -> o##.minZoom := x) minZoom;
-  set_float  (fun x -> o##.maxZoom := x) maxZoom;
-  set_bool   (fun x -> o##.fit := x) fit;
-  set_bool   (fun x -> o##.contain := x) contain;
-  set_bool   (fun x -> o##.center := x) center;
-  set_string (fun x -> o##.refreshRate := x) refreshRate;
-  set_option wrap_beforeZoom (fun x -> o##.beforeZoom := x) beforeZoom;
-  set_option wrap_onZoom (fun x -> o##.onZoom := x) onZoom;
-  set_option wrap_beforePan (fun x -> o##.beforePan := x) beforePan;
-  set_option wrap_onPan (fun x -> o##.onPan := x) onPan;
-  set_option wrap_onUpdatedCTM (fun x -> o##.onUpdatedCTM := x) onUpdatedCTM;
-  set_option (fun x -> x) (fun x -> o##.customEventsHandler := x) customEventsHandler;
-  set_option (fun x -> x) (fun x -> o##.eventsListenerElement := x) eventsListenerElement;
+  let o = create_options
+            ?viewportSelector
+            ?panEnabled
+            ?controlIconsEnabled
+            ?zoomEnabled
+            ?dblClickZoomEnabled
+            ?mouseWheelZoomEnabled
+            ?preventMouseEventsDefault
+            ?zoomScaleSensitivity
+            ?minZoom
+            ?maxZoom
+            ?fit
+            ?contain
+            ?center
+            ?refreshRate
+            ?beforeZoom
+            ?onZoom
+            ?beforePan
+            ?onPan
+            ?onUpdatedCTM
+            ?customEventsHandler
+            ?eventsListenerElement
+            ()
+  in
   new%js svgPanZoom_withOptions (Js.string svgid) o
+
+let create_withsvg
+      ?viewportSelector
+      ?panEnabled
+      ?controlIconsEnabled
+      ?zoomEnabled
+      ?dblClickZoomEnabled
+      ?mouseWheelZoomEnabled
+      ?preventMouseEventsDefault
+      ?zoomScaleSensitivity
+      ?minZoom
+      ?maxZoom
+      ?fit
+      ?contain
+      ?center
+      ?refreshRate
+      ?beforeZoom
+      ?onZoom
+      ?beforePan
+      ?onPan
+      ?onUpdatedCTM
+      ?customEventsHandler
+      ?eventsListenerElement
+      svgele =
+  let o = create_options
+            ?viewportSelector
+            ?panEnabled
+            ?controlIconsEnabled
+            ?zoomEnabled
+            ?dblClickZoomEnabled
+            ?mouseWheelZoomEnabled
+            ?preventMouseEventsDefault
+            ?zoomScaleSensitivity
+            ?minZoom
+            ?maxZoom
+            ?fit
+            ?contain
+            ?center
+            ?refreshRate
+            ?beforeZoom
+            ?onZoom
+            ?beforePan
+            ?onPan
+            ?onUpdatedCTM
+            ?customEventsHandler
+            ?eventsListenerElement
+            ()
+  in
+  new%js svgPanZoom_withOptions' svgele o
 

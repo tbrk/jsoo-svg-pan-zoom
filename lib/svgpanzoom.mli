@@ -101,8 +101,8 @@ class type t = object
   method zoomBy : float -> t Js.t Js.meth
   method zoomAtPoint : float -> point Js.t -> t Js.t Js.meth
   method zoomAtPointBy : float -> point Js.t -> t Js.t Js.meth
-  method zoomIn : float -> t Js.t Js.meth
-  method zoomOut : float -> t Js.t Js.meth
+  method zoomIn : unit -> t Js.t Js.meth
+  method zoomOut : unit -> t Js.t Js.meth
   method setOnUpdatedCTM : (ctm Js.t -> unit) Js.callback Js.t
                            -> t Js.t Js.meth
   method getZoom : unit -> float Js.meth

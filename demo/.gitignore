@@ -1,0 +1,6 @@
+*.cmi
+*.cmo
+inline.js
+limitpan.js
+multiinstance.js
+svg-pan-zoom.min.js
